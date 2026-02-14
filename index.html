@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sid and saanvi valentines day puzzle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ffb3d9 0%, #ffd6eb 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: #d63384;
+        }
+
+        .help-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: #d63384;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+
+        .help-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(214, 51, 132, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 80px;
+            box-shadow: 0 20px 60px rgba(214, 51, 132, 0.15);
+            color: #666;
+        }
+
+        h1 {
+            text-align: center;
+            color: #d63384;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 400;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .integral-problem {
+            background: #fff5f9;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            border-left: 5px solid #ffb3d9;
+        }
+
+        .integral-problem h3 {
+            color: #d63384;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .integral-display {
+            font-size: 1.3em;
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: 2px solid #ffb3d9;
+            border-radius: 8px;
+            font-size: 1.1em;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #d63384;
+        }
+
+        input[type="text"]::placeholder {
+            text-transform: none;
+        }
+
+        .submit-btn {
+            background: #d63384;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .submit-btn:hover {
+            background: #b8266f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(214, 51, 132, 0.3);
+        }
+
+        .error {
+            color: #d63384;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .success {
+            color: #d63384;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Yes/No Section */
+        .question-section {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .question-section h2 {
+            color: #d63384;
+            font-size: 2em;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .button-container {
+            position: relative;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .choice-btn {
+            padding: 20px 50px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        #yesBtn {
+            background: #d63384;
+            color: white;
+        }
+
+        #yesBtn:hover {
+            background: #b8266f;
+            transform: scale(1.05);
+        }
+
+        #noBtn {
+            background: #ffb3d9;
+            color: white;
+            position: absolute;
+        }
+
+        /* Final Section */
+        .final-section {
+            text-align: center;
+            position: relative;
+        }
+
+        .final-section h2 {
+            color: #d63384;
+            font-size: 2em;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .photo-container {
+            position: relative;
+            margin: 30px auto;
+            max-width: 500px;
+        }
+
+        .photo-container img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(214, 51, 132, 0.2);
+        }
+
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--x), var(--y)) scale(0);
+            }
+        }
+
+        .heart {
+            display: inline-block;
+            color: #ff6b9d;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin-top: 60px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .help-button {
+                top: 10px;
+                right: 10px;
+                padding: 8px 16px;
+                font-size: 0.9em;
+            }
+
+            .integral-display {
+                font-size: 1em;
+            }
+
+            .choice-btn {
+                padding: 15px 30px;
+                font-size: 1.2em;
+            }
+
+            .button-container {
+                flex-direction: column;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="https://www.youtube.com/playlist?list=PLcnmmyRC6j4EGOEAo5rEwLGdD_ngXU0KT" target="_blank" class="help-button">
+        stuck? click here!
+    </a>
+
+    <div class="container">
+        <!-- Section 1: Integral Problems -->
+        <div id="section1" class="section active">
+            <h1>silly math puzzle</h1>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 1.1em;">
+                solve these three double integrals to unlock your special message!
+            </p>
+
+            <div class="integral-problem">
+                <h3>integral 1:</h3>
+                <div class="integral-display">
+                    ∫<sub>0</sub><sup>π/3</sup> ∫<sub>1</sub><sup>2</sup> (2d/π) r dr dθ
+                </div>
+                <input type="text" id="answer1" maxlength="1" placeholder="enter your answer (a letter)">
+            </div>
+
+            <div class="integral-problem">
+                <h3>integral 2:</h3>
+                <div class="integral-display">
+                    ∫<sub>0</sub><sup>1</sup> ∫<sub>x²</sub><sup>x</sup> 24ux dy dx
+                </div>
+                <input type="text" id="answer2" maxlength="1" placeholder="enter your answer (a letter)">
+            </div>
+
+            <div class="integral-problem">
+                <h3>integral 3:</h3>
+                <div class="integral-display">
+                    ∫<sub>-2</sub><sup>2</sup> ∫<sub>-√(1-x²/4)</sub><sup>√(1-x²/4)</sup> (h/2π) dy dx
+                </div>
+                <input type="text" id="answer3" maxlength="1" placeholder="enter your answer (a letter)">
+            </div>
+
+            <button class="submit-btn" onclick="checkAnswers()">submit</button>
+            <p class="error" id="error">not quite right... try again!</p>
+            <p class="success" id="success">perfect! you got the code: <span id="code"></span></p>
+        </div>
+
+        <!-- Section 2: Yes/No Question -->
+        <div id="section2" class="section">
+            <div class="question-section">
+                <h2>will you be my valentine? <span class="heart">❤️</span></h2>
+                <div class="button-container">
+                    <button class="choice-btn" id="yesBtn" onclick="showFinal()">yes!</button>
+                    <button class="choice-btn" id="noBtn">no</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Final Message -->
+        <div id="section3" class="section">
+            <div class="final-section">
+                <h2>thank you for being my valentine! <span class="heart">❤️</span></h2>
+                <div class="photo-container" id="photoContainer">
+                    <img src="IMG_1220.JPG" alt="us">
+                </div>
+                <div id="fireworks"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            answer1: 'D',
+            answer2: 'U',
+            answer3: 'H'
+        };
+
+        function checkAnswers() {
+            const answer1 = document.getElementById('answer1').value.toUpperCase();
+            const answer2 = document.getElementById('answer2').value.toUpperCase();
+            const answer3 = document.getElementById('answer3').value.toUpperCase();
+
+            const errorMsg = document.getElementById('error');
+            const successMsg = document.getElementById('success');
+
+            if (answer1 === correctAnswers.answer1 &&
+                answer2 === correctAnswers.answer2 &&
+                answer3 === correctAnswers.answer3) {
+                errorMsg.style.display = 'none';
+                successMsg.style.display = 'block';
+                document.getElementById('code').textContent = answer1 + answer2 + answer3;
+
+                setTimeout(() => {
+                    document.getElementById('section1').classList.remove('active');
+                    document.getElementById('section2').classList.add('active');
+                }, 2000);
+            } else {
+                errorMsg.style.display = 'block';
+                successMsg.style.display = 'none';
+            }
+        }
+
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        let yesSize = 1;
+
+        noBtn.addEventListener('mouseenter', function() {
+            yesSize += 0.2;
+            yesBtn.style.transform = `scale(${yesSize})`;
+
+            const container = document.querySelector('.button-container');
+            const containerRect = container.getBoundingClientRect();
+
+            const maxX = containerRect.width - 150;
+            const maxY = containerRect.height - 60;
+
+            const randomX = Math.random() * maxX - maxX/2;
+            const randomY = Math.random() * maxY - maxY/2;
+
+            noBtn.style.left = `calc(50% + ${randomX}px)`;
+            noBtn.style.top = `calc(50% + ${randomY}px)`;
+        });
+
+        noBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            yesSize += 0.2;
+            yesBtn.style.transform = `scale(${yesSize})`;
+
+            const container = document.querySelector('.button-container');
+            const containerRect = container.getBoundingClientRect();
+
+            const maxX = containerRect.width - 150;
+            const maxY = containerRect.height - 60;
+
+            const randomX = Math.random() * maxX - maxX/2;
+            const randomY = Math.random() * maxY - maxY/2;
+
+            noBtn.style.left = `calc(50% + ${randomX}px)`;
+            noBtn.style.top = `calc(50% + ${randomY}px)`;
+        });
+
+        function showFinal() {
+            document.getElementById('section2').style.display = 'none';
+            document.getElementById('section3').classList.add('active');
+            createFireworks();
+        }
+
+        function createFireworks() {
+            const colors = ['#ffb3d9', '#ff6b9d', '#ffd6eb', '#d63384', '#ff8fa3'];
+
+            function createSingleFirework() {
+                const centerX = Math.random() * window.innerWidth;
+                const centerY = Math.random() * 400;
+
+                for (let i = 0; i < 30; i++) {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.left = centerX + 'px';
+                    firework.style.top = centerY + 'px';
+                    firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+                    const angle = (Math.PI * 2 * i) / 30;
+                    const velocity = 50 + Math.random() * 100;
+                    const x = Math.cos(angle) * velocity;
+                    const y = Math.sin(angle) * velocity;
+
+                    firework.style.setProperty('--x', x + 'px');
+                    firework.style.setProperty('--y', y + 'px');
+
+                    document.body.appendChild(firework);
+
+                    setTimeout(() => firework.remove(), 1000);
+                }
+            }
+
+            createSingleFirework();
+            const interval = setInterval(createSingleFirework, 800);
+            setTimeout(() => clearInterval(interval), 10000);
+        }
+
+        document.querySelectorAll('input[type="text"]').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkAnswers();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
